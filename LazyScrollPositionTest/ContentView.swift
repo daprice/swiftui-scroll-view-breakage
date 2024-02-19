@@ -13,19 +13,31 @@ struct ContentView: View {
 	@State private var text = ""
 	
     var body: some View {
-		TextField("Text field", text: $text)
-		ScrollView {
-			LazyVStack {
-				ForEach(model.items) { item in
-					Text(item.content)
-						.padding()
-						.background(item.color)
-				}
+		NavigationStack {
+			TextField("Text field", text: $text)
+			ScrollView {
+				Content(model: model)
+					.scrollTargetLayout()
 			}
-			.scrollTargetLayout()
+			.scrollPosition(id: $scrolledItem)
+			.toolbar {
+				Button("Load More") { model.addItems(count: 20) }
+			}
 		}
-		.scrollPosition(id: $scrolledItem)
     }
+}
+
+struct Content: View {
+	var model: ContentModel
+	var body: some View {
+		LazyVStack {
+			ForEach(model.items) { item in
+				Text(item.content)
+					.padding()
+					.background(item.color)
+			}
+		}
+	}
 }
 
 #Preview {

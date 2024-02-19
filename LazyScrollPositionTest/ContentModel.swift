@@ -16,6 +16,12 @@ import SwiftUI
 			self.items.append(ContentItem(ContentItem.exampleContent.randomElement() ?? ""))
 		}
 	}
+	
+	func addItems(count: Int) {
+		for _ in 0..<count {
+			self.items.append(ContentItem(ContentItem.exampleContent.randomElement() ?? ""))
+		}
+	}
 }
 
 struct ContentItem: Identifiable {
